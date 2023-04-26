@@ -8,5 +8,6 @@ RUN apt-get install -y \
         && docker-php-ext-install zip
 
 RUN echo "LoadModule rpaf_module /usr/lib/apache2/modules/mod_rpaf.so" > /etc/apache2/mods-available/rpaf.load
+RUN echo -e "<IfModule mod_rpaf.c>\n    RPAF_Enable             On\n    RPAF_Header             X-Real-Ip\n    RPAF_ProxyIPs           127.0.0.1\n    RPAF_SetHostName        On\n    RPAF_SetHTTPS           On\n    RPAF_SetPort            On\n</IfModule>" > /etc/apache2/mods-available/rpaf.conf
 RUN a2enmod rpaf
 WORKDIR /var/www/html
